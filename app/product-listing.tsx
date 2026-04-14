@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   View,
@@ -23,6 +23,7 @@ import {
 } from 'lucide-react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { useCart } from '../contexts/CartContext';
+import FiltersModal from '../components/FiltersModal';
 
 const { width } = Dimensions.get('window');
 const PRODUCT_CARD_WIDTH = (width - 50) / 2;
@@ -49,6 +50,7 @@ const BrowseProductsScreen = () => {
   const router = useRouter();
   const params = useLocalSearchParams<{ from?: string; to?: string; categories?: string }>();
   const { cartItems } = useCart();
+  const [showFilters, setShowFilters] = useState(false);
 
   const fromDate = params.from ? new Date(params.from) : null;
   const toDate = params.to ? new Date(params.to) : null;
@@ -139,7 +141,7 @@ const BrowseProductsScreen = () => {
                 <Text style={styles.chipText}>GROOM</Text>
               </View>
             </ScrollView>
-            <TouchableOpacity style={styles.filterButton}>
+            <TouchableOpacity style={styles.filterButton} onPress={() => setShowFilters(true)}>
               <Text style={styles.filterBtnText}>Filter</Text>
               <SlidersHorizontal color="white" size={16} style={{ marginLeft: 6 }} />
             </TouchableOpacity>
@@ -205,6 +207,7 @@ const BrowseProductsScreen = () => {
         <NavItem icon={<Package color={COLORS.textSub} size={24} />} label="INVENTORY" />
         <NavItem icon={<ShoppingCart color={COLORS.textSub} size={24} />} label="CART" />
       </View>
+      <FiltersModal visible={showFilters} onClose={() => setShowFilters(false)} />
     </SafeAreaView>
   );
 };
