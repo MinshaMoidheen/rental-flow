@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { ArrowLeft, Calendar, Check, ArrowRight } from 'lucide-react-native';
 import { Stack, useRouter } from 'expo-router';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DatePickerModal from '../components/DatePickerModal';
 
 const { width } = Dimensions.get('window');
 
@@ -123,40 +123,21 @@ const SelectDatesScreen = () => {
         <View style={styles.selectionCard}>
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>FROM DATE</Text>
-            <View style={{ position: 'relative' }}>
-              <TouchableOpacity style={styles.dateInput} onPress={() => setShowFromPicker(true)}>
-                <Calendar color={COLORS.accentBrown} size={22} strokeWidth={2.5} />
-                <Text style={styles.dateText}>{formatDate(fromDate)}</Text>
-              </TouchableOpacity>
-              <WebDatePickerOverlay value={fromDate} onChange={handleConfirmFrom} />
-            </View>
-            <DateTimePickerModal
-              isVisible={showFromPicker}
-              mode="date"
-              date={fromDate || new Date()}
-              onConfirm={handleConfirmFrom}
-              onCancel={() => setShowFromPicker(false)}
-            />
+            <TouchableOpacity style={styles.dateInput} onPress={() => setShowFromPicker(true)}>
+              <Calendar color={COLORS.accentBrown} size={22} strokeWidth={2.5} />
+              <Text style={styles.dateText}>{formatDate(fromDate)}</Text>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.inputGroup}>
             <Text style={styles.inputLabel}>TO DATE</Text>
-            <View style={{ position: 'relative' }}>
-              <TouchableOpacity style={[styles.dateInput, styles.activeInput]} onPress={() => setShowToPicker(true)}>
-                <Calendar color={COLORS.accentBrown} size={22} strokeWidth={2.5} />
-                <Text style={styles.dateText}>{formatDate(toDate)}</Text>
-              </TouchableOpacity>
-              <WebDatePickerOverlay value={toDate} onChange={handleConfirmTo} minDate={fromDate} />
-            </View>
-            <DateTimePickerModal
-              isVisible={showToPicker}
-              mode="date"
-              date={toDate || fromDate || new Date()}
-              minimumDate={fromDate || undefined}
-              onConfirm={handleConfirmTo}
-              onCancel={() => setShowToPicker(false)}
-            />
+            <TouchableOpacity style={[styles.dateInput, styles.activeInput]} onPress={() => setShowFromPicker(true)}>
+              <Calendar color={COLORS.accentBrown} size={22} strokeWidth={2.5} />
+              <Text style={styles.dateText}>{formatDate(toDate)}</Text>
+            </TouchableOpacity>
           </View>
+
+
 
           {/* SUMMARY PILL */}
           <View style={styles.summaryContainer}>
@@ -215,6 +196,18 @@ const SelectDatesScreen = () => {
         {/* Home Indicator Spacer for iOS */}
         <View style={styles.homeIndicator} />
       </View>
+
+      <DatePickerModal 
+        visible={showFromPicker}
+        initialFrom={fromDate}
+        initialTo={toDate}
+        onClose={() => setShowFromPicker(false)}
+        onApply={(start: Date, end: Date) => {
+          setFromDate(start);
+          setToDate(end);
+          setShowFromPicker(false);
+        }} 
+      />
     </SafeAreaView>
   );
 };
