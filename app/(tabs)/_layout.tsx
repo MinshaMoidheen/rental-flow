@@ -14,6 +14,7 @@ export default function TabLayout() {
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
+        tabBarStyle: { display: 'none' }, // Hides the default tab bar so custom navigation is visible
         tabBarButton: HapticTab,
       }}>
       <Tabs.Screen
