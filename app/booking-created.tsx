@@ -22,6 +22,7 @@ import {
 } from 'lucide-react-native';
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { useCart } from '../contexts/CartContext';
+import BottomNavBar from '../components/BottomNavBar';
 
 const { width } = Dimensions.get('window');
 
@@ -170,15 +171,7 @@ const BookingCreatedScreen = () => {
       </ScrollView>
 
       {/* --- BOTTOM NAVIGATION --- */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItemActive}>
-          <Home color="black" size={24} />
-          <Text style={styles.navTextActive}>HOME</Text>
-        </TouchableOpacity>
-        <NavItem icon={<CalendarDays color="#666" size={24} />} label="BOOKINGS" />
-        <NavItem icon={<Package color="#666" size={24} />} label="INVENTORY" />
-        <NavItem icon={<ShoppingCart color="#666" size={24} />} label="CART" />
-      </View>
+      <BottomNavBar />
     </SafeAreaView>
   );
 };
@@ -195,12 +188,7 @@ const InventoryItem = ({ category, name, image }: any) => (
   </View>
 );
 
-const NavItem = ({ icon, label }: any) => (
-  <TouchableOpacity style={styles.navItem}>
-    {icon}
-    <Text style={styles.navLabel}>{label}</Text>
-  </TouchableOpacity>
-);
+
 
 // --- Styles ---
 const styles = StyleSheet.create({
@@ -249,11 +237,8 @@ const styles = StyleSheet.create({
   reminderLabel: { fontSize: 9, fontWeight: '800', color: COLORS.accentBrown, marginBottom: 4 },
   reminderTime: { fontSize: 11, fontWeight: '800', color: COLORS.textMain, marginLeft: 5 },
 
-  bottomNav: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 90, backgroundColor: 'white', flexDirection: 'row', justifyContent: 'space-around', paddingTop: 15, borderTopWidth: 1, borderTopColor: '#EEE' },
-  navItem: { alignItems: 'center' },
-  navItemActive: { alignItems: 'center', backgroundColor: COLORS.primaryYellow, height: 50, paddingHorizontal: 20, borderRadius: 25, justifyContent: 'center', marginTop: -5 },
-  navLabel: { fontSize: 10, fontWeight: '700', color: '#999', marginTop: 5 },
-  navTextActive: { fontSize: 10, fontWeight: '800', color: 'black' },
+
+
 });
 
 export default BookingCreatedScreen;

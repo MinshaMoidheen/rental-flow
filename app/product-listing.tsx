@@ -24,6 +24,7 @@ import {
 import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import { useCart } from '../contexts/CartContext';
 import FiltersModal from '../components/FiltersModal';
+import BottomNavBar from '../components/BottomNavBar';
 
 const { width } = Dimensions.get('window');
 const PRODUCT_CARD_WIDTH = (width - 50) / 2;
@@ -196,17 +197,7 @@ const BrowseProductsScreen = () => {
        </View>
 
       {/* --- BOTTOM NAVIGATION --- */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItemActive}>
-          <View style={styles.activeIconCircle}>
-            <Home color="black" size={24} />
-          </View>
-          <Text style={styles.navLabelActive}>HOME</Text>
-        </TouchableOpacity>
-        <NavItem icon={<CalendarDays color={COLORS.textSub} size={24} />} label="BOOKINGS" />
-        <NavItem icon={<Package color={COLORS.textSub} size={24} />} label="INVENTORY" />
-        <NavItem icon={<ShoppingCart color={COLORS.textSub} size={24} />} label="CART" />
-      </View>
+      <BottomNavBar />
       <FiltersModal visible={showFilters} onClose={() => setShowFilters(false)} />
     </SafeAreaView>
   );
@@ -228,12 +219,7 @@ const ProductCard = ({ item, onPress }: any) => (
   </TouchableOpacity>
 );
 
-const NavItem = ({ icon, label }) => (
-  <TouchableOpacity style={styles.navItem}>
-    {icon}
-    <Text style={styles.navLabel}>{label}</Text>
-  </TouchableOpacity>
-);
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'white' },
@@ -275,16 +261,8 @@ const styles = StyleSheet.create({
   cartAddedText: { fontSize: 11, fontWeight: '800', color: COLORS.textSub },
   viewCartButton: { backgroundColor: COLORS.primary, height: '100%', borderRadius: 30, paddingHorizontal: 25, justifyContent: 'center' },
   viewCartText: { fontWeight: '800', fontSize: 12, color: COLORS.accentBrown },
-  bottomNav: { 
-    position: 'absolute', bottom: 0, width: '100%', height: 100, 
-    backgroundColor: 'rgba(255,255,255,0.7)', flexDirection: 'row', 
-    justifyContent: 'space-around', alignItems: 'center', paddingBottom: 15
-  },
-  navItem: { alignItems: 'center' },
-  navItemActive: { alignItems: 'center', marginTop: -20 },
-  activeIconCircle: { width: 56, height: 56, borderRadius: 28, backgroundColor: COLORS.primary, justifyContent: 'center', alignItems: 'center' },
-  navLabel: { fontSize: 10, fontWeight: '600', color: COLORS.textSub, marginTop: 4 },
-  navLabelActive: { fontSize: 10, fontWeight: '800', color: COLORS.textMain, marginTop: 4 }
+
+
 });
 
 export default BrowseProductsScreen;

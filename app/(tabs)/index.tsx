@@ -26,6 +26,7 @@ import {
   User,
   Clock,
 } from 'lucide-react-native';
+import BottomNavBar from '../../components/BottomNavBar';
 
 // --- Theme Colors ---
 const COLORS = {
@@ -168,15 +169,7 @@ const DashboardApp = () => {
       </ScrollView>
 
       {/* --- BOTTOM NAVIGATION --- */}
-      <View style={styles.bottomNav}>
-        <TouchableOpacity style={styles.navItemActive}>
-          <Home color="black" size={24} />
-          <Text style={styles.navTextActive}>HOME</Text>
-        </TouchableOpacity>
-        <NavItem icon={<Calendar color="#666" size={24} />} label="BOOKINGS" />
-        <NavItem icon={<LayoutGrid color="#666" size={24} />} label="INVENTORY" />
-        <NavItem icon={<User color="#666" size={24} />} label="PROFILE" />
-      </View>
+      <BottomNavBar />
     </SafeAreaView>
   );
 };
@@ -214,12 +207,7 @@ const ActivityItem = ({ name, action, time, borderColor }) => (
   </TouchableOpacity>
 );
 
-const NavItem = ({ icon, label }) => (
-  <TouchableOpacity style={styles.navItem}>
-    {icon}
-    <Text style={styles.navLabel}>{label}</Text>
-  </TouchableOpacity>
-);
+
 
 // --- Styles ---
 const styles = StyleSheet.create({
@@ -455,42 +443,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: 2,
   },
-  bottomNav: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 90,
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    paddingTop: 15,
-    borderTopWidth: 1,
-    borderTopColor: '#EEE',
-  },
-  navItem: {
-    alignItems: 'center',
-  },
-  navItemActive: {
-    alignItems: 'center',
-    backgroundColor: COLORS.primary,
-    height: 50,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    justifyContent: 'center',
-    marginTop: -5,
-  },
-  navLabel: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: '#999',
-    marginTop: 5,
-  },
-  navTextActive: {
-    fontSize: 10,
-    fontWeight: '800',
-    color: 'black',
-  },
+
 });
 
 export default DashboardApp;
